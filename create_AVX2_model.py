@@ -197,7 +197,7 @@ with tf.Graph().as_default(), tf.device('/cpu:0'):
     
     sess = tf.Session(config = config)
     sess.run(tf.global_variables_initializer())
-    saver.restore(sess,model_dir + 'model.ckpt-100')
+    saver.restore(sess,model_dir + 'model.ckpt-40')
     
     
     name = model_dir + 'model' + '.ckpt'
@@ -218,13 +218,13 @@ with tf.Graph().as_default(), tf.device('/cpu:0'):
 
     a,b = sess.run([pred1,prob1], feed_dict) 
     
-
+model_dir = "model"
 with tf.Graph().as_default():
     config = tf.ConfigProto()  
     config.allow_soft_placement = True
     sess = tf.Session(config = config)
-    saver = tf.train.import_meta_graph(model_dir + 'model.ckpt-100.meta')
-    saver.restore(sess,model_dir + 'model.ckpt-100')
+    saver = tf.train.import_meta_graph(model_dir + 'model.ckpt-40.meta')
+    saver.restore(sess,model_dir + 'model.ckpt-40')
     out = [n.name for n in tf.get_default_graph().as_graph_def().node]
     frozen_graph_def = tf.graph_util.convert_variables_to_constants(
     sess,sess.graph_def,['input/number_of_stock','input/x_return','input/formal_x',
